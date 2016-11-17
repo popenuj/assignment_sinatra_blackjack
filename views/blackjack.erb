@@ -1,6 +1,15 @@
-<form action = "/blackjack" method = "post">
-  <input type = "number" placeholder = "$ amount of initial bet">
-  <input type = "submit" value = "Place Bet">
-</form>
-<div><%= %></div>
-<div><%= %></div>
+<span>You have: $<%= session["purse"] %>
+<% if session["bet"] == 0 %>
+  <form action = "/blackjack" method = "post">
+    <input type = "number" name = "bet" placeholder = "$" min="1" max="<%= session["purse"] %>">
+    <input type = "submit" value = "Place Bet">
+  </form>
+<% else %>
+  <div><% session["player_cards"].each do | card | %>
+        <span> <%= card %> </span>
+       <% end %>
+  </div>
+  <div><% session["dealer_cards"].each do | card | %>
+        <span> <%= card %> </span>
+       <% end %></div>
+<% end %>
