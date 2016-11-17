@@ -3,7 +3,12 @@ require 'sinatra/reloader'
 
 get "/" do
 
-erb :index
+  erb :index
 
+end
+
+get "/blackjack" do
+
+  erb :blackjack
 
 end
