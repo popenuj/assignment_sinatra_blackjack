@@ -8,6 +8,7 @@ set :session_secret, '*&(^B234'
 
 get "/" do
 
+  #generate new game (give player money)
   erb :index
 
 end
@@ -15,6 +16,12 @@ end
 get "/blackjack" do
 
   erb :blackjack
-  # generate new game
+  # generate new hand (start round)
+  # ask for bet
+    # if bet is
+      # 0 render asking for bet
+    # else
+      # deal hands calling deck method
+      
 
 end
