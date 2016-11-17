@@ -17,12 +17,17 @@
     <% end %>
     <span><%= session["player_total"] %>
     <br>
-    <button class="btn btn-default">
-    <a href="blackjack">Hit</a>
-    </button>
-    <button class="btn btn-default">
-    <a href="blackjack">Stay</a>
-    </button>
+    <% if session["player_bust"] == true %>
+      <%= erb :"/shared/bust" %>
+      <%= erb :"/shared/play_again" %>
+    <% else %>
+      <form action = "/hit" method = "post">
+        <button class=" btn btn-default">Hit</button>
+      </form>
+      <form action = "/reset" method = "post">
+        <button class="btn btn-default">Stay</button>
+      </form>
+    <% end %>
   </div>
 <% end %>
 <hr>

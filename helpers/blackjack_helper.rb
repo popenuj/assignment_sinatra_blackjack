@@ -53,14 +53,19 @@ module BlackjackHelper
   end
 
   def reset
-    session["bet"] = 0
+    redeal
     session["purse"] = 100
+  end
+
+  def redeal
+    session["bet"] = 0
     session["player_cards"] = []
     session["dealer_cards"] = []
     session["player_total"] = 0
     session["dealer_total"] = 0
     session["player_bust"] = false
     session["dealer_bust"] = false
+    session["bust"] = false
   end
 
 end
