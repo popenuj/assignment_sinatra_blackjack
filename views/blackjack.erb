@@ -5,11 +5,11 @@
     <input type = "submit" value = "Place Bet">
   </form>
 <% else %>
-  <div><% session["player_cards"].each do | card | %>
+  <div>Player Hand: <% session["player_cards"].each do | card | %>
         <span> <%= card %> </span>
        <% end %>
   </div>
-  <div><% session["dealer_cards"].each do | card | %>
+  <div>Dealer Hand: <% session["dealer_cards"].each do | card | %>
         <span> <%= card %> </span>
        <% end %></div>
 <% end %>

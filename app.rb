@@ -15,24 +15,21 @@ get "/" do
   session["purse"] = 100
   session["player_cards"] = []
   session["dealer_cards"] = []
+  session["bust"] = false
   erb :index
 
 end
 
 get "/blackjack" do
 
-  deal_card
+  if session["bet"] == 0
+    deal_initial
+  elsif session["bust"] == false
+    hit
+  end
+  add_totals
 
   erb :blackjack
-  # generate new hand (start round)
-  # ask for bet
-    # if bet is
-      # 0 render asking for bet
-    # else
-      # deal hands calling deck method
-      # ask deck for card twice:
-      # player_cards & dealer_cards = arrays
-      # interpolate card hand data into png for display
 
 end
 
