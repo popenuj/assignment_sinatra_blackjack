@@ -1,15 +1,31 @@
-<span>You have: $<%= session["purse"] %>
+<span>You have: $<%= session["purse"] %></span>
+<hr>
 <% if session["bet"] == 0 %>
   <form action = "/blackjack" method = "post">
     <input type = "number" name = "bet" placeholder = "$" min="1" max="<%= session["purse"] %>">
     <input type = "submit" value = "Place Bet">
   </form>
 <% else %>
-  <div>Player Hand: <% session["player_cards"].each do | card | %>
-        <span> <%= card %> </span>
-       <% end %>
-  </div>
   <div>Dealer Hand: <% session["dealer_cards"].each do | card | %>
-        <span> <%= card %> </span>
-       <% end %></div>
+      <span> <%= card %> </span>
+    <% end %>
+    <span><%= session["dealer_total"] %>
+  </div>
+  <hr>
+  <div>Player Hand: <% session["player_cards"].each do | card | %>
+      <span> <%= card %> </span>
+    <% end %>
+    <span><%= session["player_total"] %>
+    <br>
+    <button class="btn btn-default">
+    <a href="blackjack">Hit</a>
+    </button>
+    <button class="btn btn-default">
+    <a href="blackjack">Stay</a>
+    </button>
+  </div>
 <% end %>
+<hr>
+<form action = "/reset" method = "post">
+  <input type = "submit" value = "Reset Game">
+</form>

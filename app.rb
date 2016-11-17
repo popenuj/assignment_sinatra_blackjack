@@ -15,18 +15,17 @@ get "/" do
   session["purse"] = 100
   session["player_cards"] = []
   session["dealer_cards"] = []
-  session["bust"] = false
+  session["player_total"] = 0
+  session["dealer_total"] = 0
+  session["player_bust"] = false
+  session["dealer_bust"] = false
   erb :index
-
 end
 
 get "/blackjack" do
 
-  if session["bet"] == 0
-    deal_initial
-  elsif session["bust"] == false
-    hit
-  end
+  deal_initial if session["bet"] == 0
+
   add_totals
 
   erb :blackjack
@@ -40,4 +39,14 @@ post "/blackjack" do
 
   erb :blackjack
 
+end
+
+post "/reset" do
+  reset
+  redirect to('/')
+end
+
+post "/hit" do
+  player_hit
+  erb :blackjack
 end
