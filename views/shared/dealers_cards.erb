@@ -1,0 +1,6 @@
+<h4>Dealer's Hand:</h4>
+<br>
+<% session["dealer_cards"].each do | card | %>
+  <img id="card" src="assets/<%=card[0].to_s%>_of_<%=card[1]%>.png">
+<% end %>
+<span><%= session["dealer_total"] %>

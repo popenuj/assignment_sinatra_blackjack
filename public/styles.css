@@ -1,3 +1,6 @@
 #card {
   width: 100px !important;
 }
+form {
+   display: inline-block;
+}
