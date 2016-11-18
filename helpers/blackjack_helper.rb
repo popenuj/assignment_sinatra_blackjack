@@ -21,14 +21,27 @@ module BlackjackHelper
 
   def add_totals
     session["player_total"] = session["player_cards"].inject(0) do |running_total, card|
-      if card[0] > 10
+      if card[0] == 1
+        if running_total + 11 < 21
+          running_total + 11
+        else
+          running_total + 1
+        end
+      elsif card[0] > 10
         running_total + 10
       else
         running_total + card[0]
       end
+
     end
     session["dealer_total"] = session["dealer_cards"].inject(0) do |running_total, card|
-      if card[0] > 10
+      if card[0] == 1
+        if running_total + 11 < 21
+          running_total + 11
+        else
+          running_total + 1
+        end
+      elsif card[0] > 10
         running_total + 10
       else
         running_total + card[0]

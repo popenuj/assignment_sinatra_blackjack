@@ -7,13 +7,13 @@
   </form>
 <% else %>
   <div>Dealer Hand: <% session["dealer_cards"].each do | card | %>
-      <span> <%= card %> </span>
+      <img id="card" src="assets/<%=card[0].to_s%>_of_<%=card[1]%>.png">
     <% end %>
     <span><%= session["dealer_total"] %>
   </div>
   <hr>
   <div>Player Hand: <% session["player_cards"].each do | card | %>
-      <span> <%= card %> </span>
+      <img id="card" src="assets/<%=card[0].to_s%>_of_<%=card[1]%>.png">
     <% end %>
     <span><%= session["player_total"] %>
     <br>
@@ -24,7 +24,7 @@
       <form action = "/hit" method = "post">
         <button class=" btn btn-default">Hit</button>
       </form>
-      <form action = "/reset" method = "post">
+      <form action = "/stay" method = "post">
         <button class="btn btn-default">Stay</button>
       </form>
     <% end %>

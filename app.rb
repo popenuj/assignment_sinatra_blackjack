@@ -10,7 +10,6 @@ enable :sessions
 set :session_secret, '*&(^B234'
 
 get "/" do
-
   session["bet"] = 0
   session["purse"] = 100
   session["player_cards"] = []
@@ -43,4 +42,11 @@ end
 post "/hit" do
   player_hit
   redirect to('/blackjack')
+end
+
+post "/deal" do
+  redeal
+  deal_initial if session["bet"] == 0
+  add_totals
+  erb :blackjack
 end
