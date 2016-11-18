@@ -66,9 +66,9 @@ module BlackjackHelper
 
   def blackjack_check
     if session["player_total"] == 21
-      session["player_blackjack"] = true
+      session["player_win"] = true
     elsif session["dealer_total"] == 21
-      session["dealer_blackjack"] = true
+      session["dealer_win"] = true
     end
   end
 
@@ -85,7 +85,28 @@ module BlackjackHelper
     session["dealer_total"] = 0
     session["player_bust"] = false
     session["dealer_bust"] = false
-    session["bust"] = false
+    session["player_win"] = false
+    session["dealer_win"] = false
+  end
+
+  def check_win
+    if session["player_total"] > session["dealer_total"] || session["dealer_total"] > 21
+      session["player_win"] = true
+    else
+      session["dealer_win"] = true
+    end
+  end
+
+  def minus_from_purse
+    session["purse"] -= session["bet"]
+  end
+
+  def add_to_purse
+    if session["player_blackjack"] == true
+      session["purse"] += (session["bet"] * 1.5).to_i
+    else
+      session["purse"] += session["bet"]
+    end
   end
 
 end

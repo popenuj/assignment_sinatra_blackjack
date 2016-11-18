@@ -18,6 +18,8 @@ get "/" do
   session["dealer_total"] = 0
   session["player_bust"] = false
   session["dealer_bust"] = false
+  session["player_win"] = false
+  session["dealer_win"] = false
   erb :index
 end
 
@@ -29,7 +31,7 @@ get "/blackjack" do
 end
 
 post "/blackjack" do
-  bet = params[:bet]
+  bet = params[:bet].to_i
   session["bet"] = bet
   erb :blackjack
 end
@@ -45,6 +47,28 @@ post "/hit" do
 end
 
 post "/deal" do
+  redeal
+  deal_initial if session["bet"] == 0
+  add_totals
+  erb :blackjack
+end
+
+post "/stay" do
+  dealer_hit
+  check_win
+  erb :blackjack
+end
+
+post "/win" do
+  add_to_purse
+  redeal
+  deal_initial if session["bet"] == 0
+  add_totals
+  erb :blackjack
+end
+
+post "/lose" do
+  minus_from_purse
   redeal
   deal_initial if session["bet"] == 0
   add_totals

@@ -1,10 +1,14 @@
 <span>You have: $<%= session["purse"] %></span>
 <hr>
 <% if session["bet"] == 0 %>
-  <form action = "/blackjack" method = "post">
-    <input type = "number" name = "bet" placeholder = "$" min="1" max="<%= session["purse"] %>">
-    <input type = "submit" value = "Place Bet">
-  </form>
+  <% if session["purse"] > 0 %>
+    <form action = "/blackjack" method = "post">
+      <input type = "number" name = "bet" placeholder = "$" min="1" max="<%= session["purse"] %>">
+      <input type = "submit" value = "Place Bet">
+    </form>
+  <% else %>
+    <%= erb :"/shared/no_money" %>
+  <% end %>
 <% else %>
   <div>Dealer Hand: <% session["dealer_cards"].each do | card | %>
       <img id="card" src="assets/<%=card[0].to_s%>_of_<%=card[1]%>.png">
@@ -19,14 +23,22 @@
     <br>
     <% if session["player_bust"] == true %>
       <%= erb :"/shared/bust" %>
-      <%= erb :"/shared/play_again" %>
+      <%= erb :"/shared/play_again_lose" %>
     <% else %>
-      <form action = "/hit" method = "post">
-        <button class=" btn btn-default">Hit</button>
-      </form>
-      <form action = "/stay" method = "post">
-        <button class="btn btn-default">Stay</button>
-      </form>
+      <% if session["player_win"] == true %>
+        <%= erb :"/shared/win" %>
+        <%= erb :"/shared/play_again_win" %>
+      <% elsif session["dealer_win"] == true %>
+        <%= erb :"/shared/lose" %>
+        <%= erb :"/shared/play_again_lose" %>
+      <% else %>
+        <form action = "/hit" method = "post">
+          <button class=" btn btn-default">Hit</button>
+        </form>
+        <form action = "/stay" method = "post">
+          <button class="btn btn-default">Stay</button>
+        </form>
+      <% end %>
     <% end %>
   </div>
 <% end %>
