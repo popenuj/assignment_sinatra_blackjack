@@ -12,6 +12,13 @@ module BlackjackHelper
     session["player_cards"] << deck
   end
 
+  def dealer_hit
+    while session["dealer_total"] < 17 && session["dealer_total"] < session["player_total"]
+      session["dealer_cards"] << deck
+      add_totals
+    end
+  end
+
   def deck
     deck = [1,2,3,4,5,6,7,8,9,10,11,12,13].product(%w(clubs diamonds hearts spades))
     deck -= session["player_cards"]
